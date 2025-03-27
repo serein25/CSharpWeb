@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Composition</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Composition</h1>
+    <h5>Composition is an alternative design strategy to inheritance. It involves building complex types 
+        by combining objects of other classes.</h5>
+    
+    <h2>Example</h2>
+    <p>Consider a <code>Car</code> composed of an <code>Engine</code>, <code>Transmission</code>, and <code>Wheel</code>:</p>
+    <pre><code>public class Engine {
+    public void Start() {
+        Console.WriteLine("Engine started");
+    }
+}
+
+public class Car {
+    private Engine engine;
+    
+    public Car() {
+        engine = new Engine();
+    }
+    
+    public void StartCar() {
+        engine.Start();
+    }
+}</code></pre>
+    
+    <p>This approach promotes modularity and flexibility by allowing objects to be composed of other objects.</p>
+  </div>
+</body>
+</html>

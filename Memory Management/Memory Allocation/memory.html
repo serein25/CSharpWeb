@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Allocation</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Memory Allocation</h1>
+    <h5>This section explains how C# allocates memory for different types of data, distinguishing between value types and reference types.</h5>
+
+    <h2>Value Types</h2>
+    <p>Value types such as <code>int</code>, <code>double</code>, and <code>struct</code> instances are typically allocated on the stack. This allows fast access and automatic deallocation when the variable goes out of scope.</p>
+    <pre><code>// Example of value type allocation:
+int number = 10;
+double temperature = 36.6;</code></pre>
+
+    <h2>Reference Types</h2>
+    <p>Reference types (objects, arrays, and class instances) are allocated on the heap. The heap offers a larger pool of memory and is managed by the Garbage Collector.</p>
+    <pre><code>// Example of reference type allocation:
+string greeting = "Hello, world!";
+MyClass obj = new MyClass();</code></pre>
+
+    <p>Understanding these differences is crucial for writing efficient and effective C# applications.</p>
+  </div>
+</body>
+</html>

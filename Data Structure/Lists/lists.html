@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lists</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Lists</h1>
+    <h5>Lists in C# are dynamic collections that can grow or shrink in size. They are part of the <code>System.Collections.Generic</code> namespace and are commonly used for managing collections of objects.</h5>
+
+    <h2>Creating and Using Lists</h2>
+    <p>Here's an example of how to create a list of strings, add elements, and iterate over them:</p>
+    <pre><code>using System.Collections.Generic;
+
+List&lt;string&gt; names = new List&lt;string&gt;();
+names.Add("Alice");
+names.Add("Bob");
+names.Add("Charlie");
+
+foreach (string name in names)
+{
+    Console.WriteLine(name);
+}</code></pre>
+
+    <p>Lists provide flexibility and are often preferred over arrays when the number of elements can vary at runtime.</p>
+  </div>
+</body>
+</html>

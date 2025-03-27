@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Properties &amp; Fields</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Properties &amp; Fields</h1>
+    <h5>This section explains the difference between fields and properties in C#. 
+        Fields are variables that hold data, while properties provide controlled access to these fields.</h5>
+    
+    <h2>Fields</h2>
+    <p>Fields are declared directly in a class and represent its state:</p>
+    <pre><code>public class Example {
+    public int field;
+}</code></pre>
+    
+    <h2>Properties</h2>
+    <p>Properties offer a flexible mechanism to read, write, or compute the values of private fields, often with validation logic:</p>
+    <pre><code>public class Example {
+    private int _property;
+    
+    public int Property {
+        get { return _property; }
+        set { _property = value; }
+    }
+}</code></pre>
+    
+    <p>This approach helps in encapsulating data and providing a controlled interface to it.</p>
+  </div>
+</body>
+</html>

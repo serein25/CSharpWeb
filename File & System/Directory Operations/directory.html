@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Directory Operations</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Directory Operations</h1>
+    <h5>This section covers directory-related operations in C#, including the Directory, DirectoryInfo, and Path classes.</h5>
+    
+    <h2>Directory</h2>
+    <p>The <code>Directory</code> class provides static methods for creating, moving, and enumerating through directories. For example:</p>
+    <pre><code>using System.IO;
+
+string path = "NewFolder";
+if (!Directory.Exists(path))
+{
+    Directory.CreateDirectory(path);
+}</code></pre>
+    
+    <h2>DirectoryInfo</h2>
+    <p>The <code>DirectoryInfo</code> class provides instance methods for similar operations with additional properties. For example:</p>
+    <pre><code>using System.IO;
+
+DirectoryInfo dirInfo = new DirectoryInfo("NewFolder");
+if (!dirInfo.Exists)
+{
+    dirInfo.Create();
+}</code></pre>
+    
+    <h2>Path</h2>
+    <p>The <code>Path</code> class provides methods to work with file and directory path information. For example:</p>
+    <pre><code>using System.IO;
+
+string fileName = "example.txt";
+string fullPath = Path.Combine("NewFolder", fileName);
+Console.WriteLine(fullPath);</code></pre>
+    
+    <p>These tools simplify working with directories and file paths, making it easier to manage file systems in C#.</p>
+  </div>
+</body>
+</html>

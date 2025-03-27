@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HashSet</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>HashSet</h1>
+    <h5>A HashSet is a collection that stores unique elements and provides fast lookup performance. It is part of the <code>System.Collections.Generic</code> namespace.</h5>
+
+    <h2>Using a HashSet</h2>
+    <p>Here's an example of how to create and use a HashSet of integers:</p>
+    <pre><code>using System.Collections.Generic;
+
+HashSet&lt;int&gt; uniqueNumbers = new HashSet&lt;int&gt;();
+uniqueNumbers.Add(1);
+uniqueNumbers.Add(2);
+uniqueNumbers.Add(2); // Duplicate, will not be added
+uniqueNumbers.Add(3);
+
+foreach (int number in uniqueNumbers)
+{
+    Console.WriteLine(number);
+}</code></pre>
+
+    <p>HashSet is especially useful when you need to ensure that a collection contains no duplicate values.</p>
+  </div>
+</body>
+</html>

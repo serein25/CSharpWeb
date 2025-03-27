@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inheritance &amp; Polymorphism</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Inheritance &amp; Polymorphism</h1>
+    <h5>This section explores inheritance and polymorphism, two key concepts in object-oriented programming 
+        that promote code reuse and flexibility.</h5>
+    
+    <h2>Inheritance</h2>
+    <p>Inheritance allows a class to inherit members from another class. For example:</p>
+    <pre><code>public class Animal {
+    public void Eat() {
+        Console.WriteLine("Eating");
+    }
+}
+
+public class Dog : Animal {
+    public void Bark() {
+        Console.WriteLine("Barking");
+    }
+}</code></pre>
+    
+    <h2>Polymorphism</h2>
+    <p>Polymorphism enables a method to behave differently based on the object that invokes it. 
+        This is often achieved through method overriding:</p>
+    <pre><code>public class Animal {
+    public virtual void Speak() {
+        Console.WriteLine("Animal sound");
+    }
+}
+
+public class Dog : Animal {
+    public override void Speak() {
+        Console.WriteLine("Woof!");
+    }
+}</code></pre>
+    
+    <p>These techniques allow for more flexible and dynamic code.</p>
+  </div>
+</body>
+</html>

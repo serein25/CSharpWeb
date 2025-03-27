@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LINQ (Language Integrated Query)</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>LINQ (Language Integrated Query)</h1>
+    <h5>LINQ provides a consistent and type-safe way to query different data sources (like collections, XML, and databases) using a syntax similar to SQL.</h5>
+
+    <h2>Basic LINQ Query</h2>
+    <p>Here's an example that filters a list of numbers to retrieve even numbers using query syntax:</p>
+    <pre><code>using System;
+using System.Linq;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        List&lt;int&gt; numbers = new List&lt;int&gt; { 1, 2, 3, 4, 5, 6 };
+        var evenNumbers = from num in numbers
+                          where num % 2 == 0
+                          select num;
+
+        foreach (var n in evenNumbers)
+        {
+            Console.WriteLine(n);
+        }
+    }
+}</code></pre>
+
+    <h2>Method Syntax</h2>
+    <p>You can also write the same query using method syntax:</p>
+    <pre><code>var evenNumbers = numbers.Where(n => n % 2 == 0);</code></pre>
+    <p>LINQ simplifies data queries and can be applied to various data sources, enhancing the expressiveness of your code.</p>
+  </div>
+</body>
+</html>

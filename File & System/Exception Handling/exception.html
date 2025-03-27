@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exception Handling</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Exception Handling</h1>
+    <h5>Exception handling in C# is critical for managing runtime errors. This section explains how to use try-catch-finally blocks to gracefully handle exceptions.</h5>
+    
+    <h2>Try-Catch-Finally</h2>
+    <p>The try-catch-finally block allows you to catch exceptions and perform cleanup actions:</p>
+    <pre><code>try
+{
+    // Code that might throw an exception
+    int result = 10 / int.Parse("0");
+}
+catch (DivideByZeroException ex)
+{
+    Console.WriteLine("Division by zero is not allowed.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine("An error occurred: " + ex.Message);
+}
+finally
+{
+    Console.WriteLine("Cleanup actions can be performed here.");
+}</code></pre>
+    
+    <h2>Custom Exceptions</h2>
+    <p>You can create your own custom exceptions by inheriting from the <code>Exception</code> class:</p>
+    <pre><code>public class MyCustomException : Exception
+{
+    public MyCustomException(string message) : base(message)
+    {
+    }
+}</code></pre>
+    
+    <p>Proper exception handling ensures that your application can recover from errors or shut down gracefully when an error occurs.</p>
+  </div>
+</body>
+</html>

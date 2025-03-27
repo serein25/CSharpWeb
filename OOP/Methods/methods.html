@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Methods</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Methods</h1>
+    <h5>This section explains how methods work in C#, including instance methods, static methods, and constructors.</h5>
+    
+    <h2>Instance Methods</h2>
+    <p>Instance methods operate on a specific instance of a class:</p>
+    <pre><code>public class Calculator {
+    public int Add(int a, int b) {
+        return a + b;
+    }
+}</code></pre>
+    
+    <h2>Static Methods</h2>
+    <p>Static methods belong to the class itself and can be called without creating an instance:</p>
+    <pre><code>public class MathUtil {
+    public static int Multiply(int a, int b) {
+        return a * b;
+    }
+}</code></pre>
+    
+    <h2>Constructors</h2>
+    <p>Constructors are special methods used to initialize new instances of a class. 
+        They can also use the <code>this</code> keyword to reference the current instance:</p>
+    <pre><code>public class Person {
+    public string Name;
+    
+    public Person(string name) {
+        this.Name = name;
+    }
+}</code></pre>
+    
+    <p>Methods are essential for encapsulating functionality and promoting code reuse.</p>
+  </div>
+</body>
+</html>

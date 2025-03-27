@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delegates, Lambdas, and Events</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Delegates, Lambdas, and Events</h1>
+    <h5>This section explains how delegates, lambda expressions, and events work in C#. 
+        They enable flexible code design, event-driven programming, and inline method definitions.</h5>
+
+    <h2>Delegates</h2>
+    <p>A delegate is a type-safe function pointer that defines a method signature. For example:</p>
+    <pre><code>public delegate void GreetDelegate(string name);
+
+public class Greeter
+{
+    public void Greet(string name)
+    {
+        Console.WriteLine($"Hello, {name}!");
+    }
+}</code></pre>
+    <p>You can assign a method to the delegate and call it:</p>
+    <pre><code>GreetDelegate greetHandler = new Greeter().Greet;
+greetHandler("Alice");</code></pre>
+
+    <h2>Lambda Expressions</h2>
+    <p>Lambda expressions provide a concise way to write anonymous methods. They are especially useful with delegates. For example:</p>
+    <pre><code>GreetDelegate greetHandler = (name) => Console.WriteLine($"Hello, {name}!");
+greetHandler("Bob");</code></pre>
+
+    <h2>Events</h2>
+    <p>Events use delegates to enable a class to notify other classes or objects when something occurs. For example:</p>
+    <pre><code>public class Button
+{
+    public event Action Clicked;
+
+    public void OnClick()
+    {
+        if (Clicked != null)
+            Clicked();
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        Button btn = new Button();
+        btn.Clicked += () => Console.WriteLine("Button was clicked!");
+        btn.OnClick();
+    }
+}</code></pre>
+
+    <h2>Extension Methods</h2>
+    <p>Extension methods allow you to add new methods to an existing type without modifying it. For example:</p>
+    <pre><code>public static class StringExtensions
+{
+    public static bool IsNullOrEmpty(this string str)
+    {
+        return string.IsNullOrEmpty(str);
+    }
+}
+
+// Usage:
+string sample = "";
+bool isEmpty = sample.IsNullOrEmpty();</code></pre>
+  </div>
+</body>
+</html>

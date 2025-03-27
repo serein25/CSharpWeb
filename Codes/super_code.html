@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Comprehensive Bank Simulator Example</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Comprehensive Bank Simulator Example</h1>
+    <h5>
+      This example simulates a simple bank system. It demonstrates language basics, object-oriented programming, advanced constructs, data structures, file I/O, memory management, and more—all integrated into one coherent application.
+    </h5>
+    <pre><code>// Comprehensive Bank Simulator Application
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace BankSimulator
+{
+    // INTERFACE: Defines a contract for describing objects.
+    interface IDescribable
+    {
+        string Describe();
+    }
+
+    // ABSTRACT CLASS: Represents a generic bank account.
+    abstract class BankAccount : IDescribable
+    {
+        // Private static field to generate unique account numbers.
+        private static int nextAccountNumber = 1000;
+        private int accountNumber;
+        public int AccountNumber { get { return accountNumber; } }
+
+        // Property for account owner's name.
+        public string Owner { get; set; }
+
+        // Protected balance field, accessible to derived classes.
+        protected decimal balance;
+        public decimal Balance { get { return balance; } }
+
+        // EVENT: Notifies subscribers of transactions.
+        public event Action<string> OnTransaction;
+
+        // Constructor: Uses 'this' to assign instance values.
+        public BankAccount(string owner, decimal initialBalance)
+        {
+            this.accountNumber = nextAccountNumber++;
+            this.Owner = owner;
+            this.balance = initialBalance;
+        }
+
+        // ABSTRACT METHODS: Must be implemented by concrete account types.
+        public abstract void Deposit(decimal amount);
+        public abstract bool Withdraw(decimal amount);
+
+        // Protected helper to trigger transaction notifications.
+        protected void Notify(string message)
+        {
+            OnTransaction?.Invoke(message);
+        }
+
+        // OVERRIDDEN OBJECT METHODS: Ensures proper equality checks.
+        public override bool Equals(object obj)
+        {
+            if (obj is BankAccount other)
+                return this.accountNumber == other.accountNumber;
+            return false;
+        }
+        public override int GetHashCode()
+        {
+            return accountNumber.GetHashCode();
+        }
+
+        // CORE METHOD: Returns a description of the account.
+        public virtual string Describe()
+        {
+            return $"Account {accountNumber}: Owner {Owner}, Balance {balance:C}";
+        }
+    }
+
+    // SEALED CLASS: SavingsAccount cannot be inherited further.
+    sealed class SavingsAccount : BankAccount
+    {
+        // Property for the interest rate.
+        public decimal InterestRate { get; set; }
+
+        public SavingsAccount(string owner, decimal initialBalance, decimal interestRate)
+            : base(owner, initialBalance)
+        {
+            this.InterestRate = interestRate;
+        }
+
+        public override void Deposit(decimal amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Deposit amount must be positive.");
+            balance += amount;
+            Notify($"Deposited {amount:C} to Savings Account {AccountNumber}");
+        }
+
+        public override bool Withdraw(decimal amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Withdrawal amount must be positive.");
+            if (balance >= amount)
+            {
+                balance -= amount;
+                Notify($"Withdrew {amount:C} from Savings Account {AccountNumber}");
+                return true;
+            }
+            else
+            {
+                Notify($"Insufficient funds in Savings Account {AccountNumber}");
+                return false;
+            }
+        }
+
+        public override string Describe()
+        {
+            return base.Describe() + $", Interest Rate: {InterestRate:P}";
+        }
+    }
+
+    // CLASS: CheckingAccount with an overdraft facility.
+    class CheckingAccount : BankAccount
+    {
+        public decimal OverdraftLimit { get; set; }
+
+        public CheckingAccount(string owner, decimal initialBalance, decimal overdraftLimit)
+            : base(owner, initialBalance)
+        {
+            this.OverdraftLimit = overdraftLimit;
+        }
+
+        public override void Deposit(decimal amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Deposit amount must be positive.");
+            balance += amount;
+            Notify($"Deposited {amount:C} to Checking Account {AccountNumber}");
+        }
+
+        public override bool Withdraw(decimal amount)
+        {
+            if (amount <= 0)
+                throw new ArgumentException("Withdrawal amount must be positive.");
+            if (balance + OverdraftLimit >= amount)
+            {
+                balance -= amount;
+                Notify($"Withdrew {amount:C} from Checking Account {AccountNumber}");
+                return true;
+            }
+            else
+            {
+                Notify($"Insufficient funds in Checking Account {AccountNumber}");
+                return false;
+            }
+        }
+
+        public override string Describe()
+        {
+            return base.Describe() + $", Overdraft Limit: {OverdraftLimit:C}";
+        }
+    }
+
+    // GENERIC CLASS: Demonstrates type-safe containers.
+    class GenericBox<T>
+    {
+        public T Value { get; set; }
+        public GenericBox(T value)
+        {
+            Value = value;
+        }
+    }
+
+    // CLASS: Manages bank accounts and simulates operations.
+    class Bank
+    {
+        // LIST: Collection of bank accounts.
+        public List<BankAccount> Accounts { get; private set; } = new List<BankAccount>();
+
+        // Adds an account and subscribes to its transaction notifications.
+        public void AddAccount(BankAccount account)
+        {
+            account.OnTransaction += message => Console.WriteLine("[Notification] " + message);
+            Accounts.Add(account);
+        }
+
+        // Finds an account by account number using LINQ.
+        public BankAccount FindAccount(int accountNumber)
+        {
+            return Accounts.FirstOrDefault(a => a.AccountNumber == accountNumber);
+        }
+
+        // Generates a report file of all accounts (File I/O).
+        public void GenerateReport(string filePath)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    foreach (var account in Accounts)
+                    {
+                        writer.WriteLine(account.Describe());
+                    }
+                }
+                Console.WriteLine("Report generated at: " + Path.GetFullPath(filePath));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error generating report: " + ex.Message);
+            }
+        }
+
+        // LINQ: Returns accounts with a balance above a given threshold.
+        public IEnumerable<BankAccount> GetHighBalanceAccounts(decimal threshold)
+        {
+            return Accounts.Where(a => a.Balance >= threshold);
+        }
+    }
+
+    class Program
+    {
+        // ASYNC METHOD: Simulates processing transactions asynchronously.
+        static async Task ProcessTransactionsAsync(Bank bank)
+        {
+            await Task.Delay(1000); // Simulate delay.
+            foreach (var account in bank.Accounts)
+            {
+                account.Deposit(50); // Simulate a deposit.
+            }
+            Console.WriteLine("Processed transactions asynchronously.");
+        }
+
+        // ASYNC METHOD: Demonstrates asynchronous greeting.
+        static async Task<string> AsyncGreeting(string name)
+        {
+            await Task.Delay(500);
+            return $"Hello, {name}!";
+        }
+
+        // CORE METHOD: Simple addition.
+        static int AddNumbers(int a, int b)
+        {
+            return a + b;
+        }
+
+        // Async Main is supported in C# 7.1+.
+        static async Task Main(string[] args)
+        {
+            // LANGUAGE BASICS: Variables, control flow, and methods.
+            var welcomeMessage = "Welcome to the Comprehensive Bank Simulator";
+            Console.WriteLine(welcomeMessage);
+            if (welcomeMessage.Length > 0)
+                Console.WriteLine("The welcome message is set.");
+            for (int i = 0; i < 2; i++)
+                Console.WriteLine($"Iteration {i}");
+            switch (welcomeMessage)
+            {
+                case "Welcome to the Comprehensive Bank Simulator":
+                    Console.WriteLine("Exact match!");
+                    break;
+                default:
+                    Console.WriteLine("Different message.");
+                    break;
+            }
+            Console.WriteLine("3 + 4 = " + AddNumbers(3, 4));
+
+            // OOP: Create bank accounts using inheritance and polymorphism.
+            Bank bank = new Bank();
+            SavingsAccount savings = new SavingsAccount("Alice", 1000m, 0.03m);
+            CheckingAccount checking = new CheckingAccount("Bob", 500m, 200m);
+            bank.AddAccount(savings);
+            bank.AddAccount(checking);
+
+            // Perform transactions.
+            savings.Deposit(200);
+            checking.Withdraw(100);
+            Console.WriteLine(savings.Describe());
+            Console.WriteLine(checking.Describe());
+
+            // STATIC and CORE METHODS: Simple math demonstration.
+            Console.WriteLine("3 x 4 = " + (3 * 4));
+
+            // GENERICS: Using a generic container.
+            var box = new GenericBox<string>("Generic Content");
+            Console.WriteLine("GenericBox contains: " + box.Value);
+
+            // DELEGATES, LAMBDAS, EVENTS: Notifications occur on transactions.
+
+            // LINQ: Query accounts with high balances.
+            var richAccounts = bank.GetHighBalanceAccounts(800m);
+            foreach (var account in richAccounts)
+            {
+                Console.WriteLine("High balance account: " + account.Describe());
+            }
+
+            // DATA STRUCTURES & COLLECTIONS:
+            // Arrays:
+            int[] numberArray = new int[] { 7, 8, 9 };
+            Console.WriteLine("Array: " + string.Join(", ", numberArray));
+            // Dictionary:
+            Dictionary<string, int> customerAges = new Dictionary<string, int>()
+            {
+                { "Alice", 30 },
+                { "Bob", 25 }
+            };
+            foreach (var kvp in customerAges)
+            {
+                Console.WriteLine($"{kvp.Key} is {kvp.Value} years old.");
+            }
+            // HashSet:
+            HashSet<string> uniqueCustomers = new HashSet<string>() { "Alice", "Bob", "Alice" };
+            Console.WriteLine("Unique Customers: " + string.Join(", ", uniqueCustomers));
+
+            // FILE & SYSTEM I/O:
+            string reportFile = "BankReport.txt";
+            bank.GenerateReport(reportFile);
+            // DIRECTORY OPERATIONS:
+            string dirPath = "BankData";
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+            string combinedPath = Path.Combine(dirPath, reportFile);
+            Console.WriteLine("Combined path: " + combinedPath);
+
+            // EXCEPTION HANDLING:
+            try
+            {
+                if (!checking.Withdraw(10000))
+                    throw new InvalidOperationException("Withdrawal failed due to insufficient funds.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Transaction error: " + ex.Message);
+            }
+
+            // ASYNC PROGRAMMING:
+            await ProcessTransactionsAsync(bank);
+            string asyncResult = await AsyncGreeting("Async User");
+            Console.WriteLine(asyncResult);
+
+            // MEMORY MANAGEMENT:
+            GC.Collect(); // Force garbage collection (for demonstration only).
+
+            // CORE METHODS: String manipulation and DateTime usage.
+            string sample = "Hello, World!";
+            Console.WriteLine("Substring: " + sample.Substring(0, 5));
+            Console.WriteLine("Current Date and Time: " + DateTime.Now);
+            Console.WriteLine("TimeSpan since start of day: " + (DateTime.Now - DateTime.Today));
+
+            Console.WriteLine("Simulation complete. Press any key to exit.");
+            Console.ReadKey();
+        }
+    }
+}
+</code></pre>
+    <p>
+      <strong>Explanation:</strong>
+    </p>
+    <ul>
+      <li><strong>Language Basics:</strong> Variable declarations, control flow (if, for, switch), and a core addition method.</li>
+      <li><strong>OOP:</strong> Abstract BankAccount with SavingsAccount and CheckingAccount implementations demonstrating inheritance, encapsulation, and polymorphism.</li>
+      <li><strong>Advanced Constructs:</strong> Generics via GenericBox; delegates, lambda expressions, and events for transaction notifications; LINQ for querying accounts; asynchronous methods.</li>
+      <li><strong>Data Structures &amp; Collections:</strong> Arrays, Lists (in Bank), Dictionary, and HashSet usage.</li>
+      <li><strong>File &amp; System I/O:</strong> Generating a bank report, directory operations, and exception handling.</li>
+      <li><strong>Memory Management:</strong> Implicit through types and explicit GC.Collect() demonstration.</li>
+    </ul>
+    <p>
+      This coherent bank simulator ties together all key topics from the C# summary tree into a realistic application.
+    </p>
+  </div>
+</body>
+</html> 

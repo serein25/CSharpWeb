@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Garbage Collector</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Garbage Collector</h1>
+    <h5>This section explains how the Garbage Collector (GC) in .NET automatically manages memory by cleaning up objects that are no longer in use.</h5>
+
+    <h2>Overview</h2>
+    <p>The Garbage Collector runs on the managed heap, identifying objects that are no longer referenced by your program and reclaiming that memory. This process helps prevent memory leaks and keeps your application running efficiently.</p>
+
+    <h2>Key Points</h2>
+    <ul>
+      <li>The GC operates non-deterministically, meaning you cannot predict exactly when it will run.</li>
+      <li>It reclaims memory used by objects that are no longer referenced.</li>
+      <li>While you can manually trigger garbage collection using <code>GC.Collect()</code>, it is generally best to let the runtime manage memory automatically.</li>
+    </ul>
+
+    <h2>Example</h2>
+    <p>For demonstration purposes, you can manually invoke the Garbage Collector:</p>
+    <pre><code>// Forces an immediate garbage collection (for demonstration only)
+GC.Collect();</code></pre>
+
+    <p>Relying on the GC allows you to focus on developing your application while the .NET runtime efficiently manages memory cleanup.</p>
+  </div>
+</body>
+</html>

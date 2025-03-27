@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Object Methods</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Object Methods</h1>
+    <h5>Object methods like <code>GetHashCode</code> and <code>Equals</code> are fundamental to how objects are compared and stored. Overriding these methods correctly is crucial for proper behavior in collections and when checking object equality.</h5>
+
+    <h2>GetHashCode</h2>
+    <p><code>GetHashCode</code> returns a hash code for the object, which is used in hashing algorithms and data structures such as hash tables. A simple override might look like:</p>
+    <pre><code>public class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+
+    public override int GetHashCode()
+    {
+        return (Name, Age).GetHashCode();
+    }
+}</code></pre>
+
+    <h2>Equals</h2>
+    <p>The <code>Equals</code> method determines whether the specified object is equal to the current object. Here's an example override:</p>
+    <pre><code>public override bool Equals(object obj)
+{
+    if (obj is Person other)
+    {
+        return this.Name == other.Name && this.Age == other.Age;
+    }
+    return false;
+}</code></pre>
+    <p>Overriding both methods in tandem is essential when objects are stored in collections that rely on hashing for equality comparisons.</p>
+  </div>
+</body>
+</html>

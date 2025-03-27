@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generics</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Generics</h1>
+    <h5>Generics allow you to create type-safe data structures and methods without specifying 
+      the exact data type until runtime. They promote code reusability and maintainability.</h5>
+
+    <h2>Generic Classes</h2>
+    <p>A generic class is defined with one or more type parameters. For example:</p>
+    <pre><code>public class GenericList&lt;T&gt;
+{
+    private List&lt;T&gt; items = new List&lt;T&gt;();
+
+    public void Add(T item)
+    {
+        items.Add(item);
+    }
+
+    public T GetItem(int index)
+    {
+        return items[index];
+    }
+}</code></pre>
+
+    <h2>Generic Methods</h2>
+    <p>Generic methods allow you to specify type parameters at the method level. For example:</p>
+    <pre><code>public T Echo&lt;T&gt;(T input)
+{
+    return input;
+}</code></pre>
+
+    <p>Using generics helps reduce code duplication and improves type safety throughout your codebase.</p>
+  </div>
+</body>
+</html>

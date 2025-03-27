@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>File Operations</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>File Operations</h1>
+    <h5>This section covers various file operations in C#, including working with the File, FileInfo, FileStream, StreamReader, and StreamWriter classes.</h5>
+    
+    <h2>File</h2>
+    <p>The <code>File</code> class provides static methods for creating, copying, deleting, moving, and opening files. For example:</p>
+    <pre><code>using System.IO;
+
+File.WriteAllText("example.txt", "Hello, world!");
+string content = File.ReadAllText("example.txt");
+Console.WriteLine(content);</code></pre>
+    
+    <h2>FileInfo</h2>
+    <p>The <code>FileInfo</code> class provides instance methods for file operations and additional file details. For example:</p>
+    <pre><code>using System.IO;
+
+FileInfo fileInfo = new FileInfo("example.txt");
+if (fileInfo.Exists)
+{
+    Console.WriteLine($"File Size: {fileInfo.Length} bytes");
+}</code></pre>
+    
+    <h2>FileStream</h2>
+    <p><code>FileStream</code> allows you to read from or write to a file as a stream of bytes. For example:</p>
+    <pre><code>using System.IO;
+
+using (FileStream fs = new FileStream("example.txt", FileMode.OpenOrCreate))
+{
+    byte[] info = new System.Text.UTF8Encoding(true).GetBytes("Hello, FileStream!");
+    fs.Write(info, 0, info.Length);
+}</code></pre>
+    
+    <h2>StreamReader and StreamWriter</h2>
+    <p><code>StreamReader</code> and <code>StreamWriter</code> provide easy-to-use methods for reading and writing text files:</p>
+    <pre><code>using System.IO;
+
+// Writing to a file
+using (StreamWriter writer = new StreamWriter("example.txt"))
+{
+    writer.WriteLine("Hello, StreamWriter!");
+}
+
+// Reading from a file
+using (StreamReader reader = new StreamReader("example.txt"))
+{
+    string line = reader.ReadToEnd();
+    Console.WriteLine(line);
+}</code></pre>
+    
+    <p>These file operation classes help you manage files efficiently in C#.</p>
+  </div>
+</body>
+</html>

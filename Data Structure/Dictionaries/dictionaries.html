@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dictionaries</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Dictionaries</h1>
+    <h5>Dictionaries in C# store key-value pairs and allow fast retrieval of data based on a unique key. They are part of the <code>System.Collections.Generic</code> namespace.</h5>
+
+    <h2>Creating a Dictionary</h2>
+    <p>You can create and populate a dictionary as shown below:</p>
+    <pre><code>using System.Collections.Generic;
+
+Dictionary&lt;int, string&gt; studentGrades = new Dictionary&lt;int, string&gt;();
+studentGrades.Add(1, "A");
+studentGrades.Add(2, "B");
+studentGrades.Add(3, "A");</code></pre>
+
+    <h2>Accessing Dictionary Elements</h2>
+    <p>You can iterate over a dictionary to access its keys and values:</p>
+    <pre><code>foreach (var kvp in studentGrades)
+{
+    Console.WriteLine($"Student {kvp.Key}: Grade {kvp.Value}");
+}</code></pre>
+
+    <p>Dictionaries are ideal for scenarios where you need to associate unique keys with specific values.</p>
+  </div>
+</body>
+</html>

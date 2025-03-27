@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interfaces</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Interfaces</h1>
+    <h5>Interfaces define a contract that classes can implement, ensuring they 
+        provide specific methods and properties without dictating how they are implemented.</h5>
+    
+    <h2>Defining an Interface</h2>
+    <p>For example:</p>
+    <pre><code>public interface ILogger {
+    void Log(string message);
+}</code></pre>
+    
+    <h2>Implementing an Interface</h2>
+    <p>A class that implements an interface must provide implementations for all its members:</p>
+    <pre><code>public class ConsoleLogger : ILogger {
+    public void Log(string message) {
+        Console.WriteLine(message);
+    }
+}</code></pre>
+    
+    <p>Interfaces enable loose coupling and enhance the testability and scalability of your code.</p>
+  </div>
+</body>
+</html>
